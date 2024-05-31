@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import axios from 'axios';
 
 import { RootStackParamList } from '../routes/Navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 type LoginScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Login'>; 
 };
@@ -10,10 +12,22 @@ type LoginScreenProps = {
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const[error,SetError] = useState('');
 
-  const handleLogin = () => {
-   
-      navigation.navigate('Home');
+  const handleLogin = async () => {
+    try{
+       const response = await axios.post('http;//localhost:8080/auth/login',{
+            username: username,
+            password:password
+        })
+          AsyncStorage.setItem('token',response.data);
+
+        navigation.navigate('Home');
+      }catch(error:any){
+            SetError('Verifique sua credenciais'+ error.response.data);
+      }
+         
+     
    
   };
 
