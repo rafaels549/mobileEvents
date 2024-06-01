@@ -1,19 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../routes/Navigation';
+import { RouteProp } from '@react-navigation/native';
+import axios from 'axios';
 import { View,  StyleSheet,Button } from 'react-native';
 import Evento from '../service/GetEvento';
 
-type EventoProp = {
+type EventoScreenProps = {
 
-    navigation: StackNavigationProp<RootStackParamList, 'Evento'>; 
+    navigation: StackNavigationProp<RootStackParamList, 'Eventos'>;
+    route: RouteProp<RootStackParamList, 'Eventos'>;
+  
+    
+    
+    
 }
 
+  
 
 
-const EventoScreen:  React.FC<EventoProp> = ({ navigation}) =>{
+const EventoScreen:  React.FC<EventoScreenProps> = ({ navigation,route}) =>{
+  const {id} = route.params;
 
-    const [eventos , setEvento] = useState<Evento>({id: 0,nome:'', imagem:'', data:'',horario:'',owner:''})
+  useEffect(() => {
+    const getEvento = async () => {
+      try{
+    const response =  await axios.get("http://localhost:8080/eventos/${id}");
+      }catch(error:any){
+         
+      }
+                  
+    }
+
+    getEvento();
+  }, []); 
+  
+  const [eventos , setEvento] = useState<Evento>({id: 0,nome:'', imagem:'', data:'',horario:'',owner:''})
     const handleParticipar = () => {
                 
       };

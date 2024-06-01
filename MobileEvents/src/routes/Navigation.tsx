@@ -13,7 +13,7 @@ import RegisterScreen from '../views/RegisterScreen';
 export type RootStackParamList = {
  Home: undefined;
  Login: undefined;
- Evento:undefined;
+ Eventos: { id: number };
  Register:undefined;
  CreateEvent:undefined;
  Participantes:undefined;
@@ -32,7 +32,7 @@ const AppNavigator: React.FC = () => {
       >
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Evento" component={EventoScreen} />
+      <Stack.Screen name="Eventos" component={EventoScreen} />
       <Stack.Screen name="CreateEvent" component={CreateEventScreen} />
       <Stack.Screen name="Participantes" component={ParticipantesScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
